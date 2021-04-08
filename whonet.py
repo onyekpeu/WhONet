@@ -420,7 +420,7 @@ for nfr in range(number_of_runs):
     #############################################################################
     #############################################################################
     #############################################################################
-    'GRU TRAINING'
+    'RNN TRAINING'
     #############################################################################
     #############################################################################
     #############################################################################
@@ -580,84 +580,84 @@ for nfr in range(number_of_runs):
     crse_runsdf180_3NN[nfr]=perf_metrdf3_crsep180s[:]  
 
 
-        cae_runshrNN[nfr]=perf_metrhr_caepcs[:]
-        
-        cae_runsra_1NN[nfr]=perf_metrra1_caepcs[:]  
-        cae_runsra_2NN[nfr]=perf_metrra2_caepcs[:]         
-                
-        cae_runscia_1NN[nfr]=perf_metrcia1_caepcs[:] 
-        cae_runscia_2NN[nfr]=perf_metrcia2_caepcs[:]         
-        
-        cae_runshb_1NN[nfr]=perf_metrhb1_caepcs[:]
-        cae_runshb_2NN[nfr]=perf_metrhb2_caepcs[:]        
-        
-        cae_runsslr_1NN[nfr]=perf_metrslr1_caepcs[:]  
-        cae_runsslr_2NN[nfr]=perf_metrslr2_caepcs[:]         
-        cae_runsslr_3NN[nfr]=perf_metrslr3_caepcs[:] 
-        
-        cae_runswr_1NN[nfr]=perf_metrwr1_caepcs[:]
-        cae_runswr_2NN[nfr]=perf_metrwr2_caepcs[:]        
-        cae_runswr_3NN[nfr]=perf_metrwr3_caepcs[:]        
-        
-        cae_runsag30_1NN[nfr]=perf_metrag1_caep30s[:]
-        cae_runsag30_2NN[nfr]=perf_metrag2_caep30s[:]        
-        cae_runsag30_3NN[nfr]=perf_metrag3_caep30s[:]        
-        cae_runsag30_4NN[nfr]=perf_metrag4_caep30s[:]        
-        cae_runsag30_5NN[nfr]=perf_metrag5_caep30s[:] 
-        cae_runsag30_6NN[nfr]=perf_metrag6_caep30s[:]        
-#        cae_runsag30_7NN[nfr]=perf_metrag7_caep30s[:]  
-        
-        cae_runsag60_1NN[nfr]=perf_metrag1_caep60s[:]
-        cae_runsag60_2NN[nfr]=perf_metrag2_caep60s[:]        
-        cae_runsag60_3NN[nfr]=perf_metrag3_caep60s[:]        
-        cae_runsag60_4NN[nfr]=perf_metrag4_caep60s[:]        
-        cae_runsag60_5NN[nfr]=perf_metrag5_caep60s[:] 
-        cae_runsag60_6NN[nfr]=perf_metrag6_caep60s[:]        
-#        cae_runsag60_7NN[nfr]=perf_metrag7_caep60s[:] 
+      cte_runshrNN[nfr]=perf_metrhr_ctepcs[:]
 
-        cae_runsag90_1NN[nfr]=perf_metrag1_caep90s[:]
-        cae_runsag90_2NN[nfr]=perf_metrag2_caep90s[:]        
-        cae_runsag90_3NN[nfr]=perf_metrag3_caep90s[:]        
-        cae_runsag90_4NN[nfr]=perf_metrag4_caep90s[:]        
-        cae_runsag90_5NN[nfr]=perf_metrag5_caep90s[:]   
-        cae_runsag90_6NN[nfr]=perf_metrag6_caep90s[:]        
-#        cae_runsag90_7NN[nfr]=perf_metrag7_caep90s[:]   
-        
-        cae_runsag120_1NN[nfr]=perf_metrag1_caep120s[:]
-        cae_runsag120_2NN[nfr]=perf_metrag2_caep120s[:]        
-        cae_runsag120_3NN[nfr]=perf_metrag3_caep120s[:]        
-        cae_runsag120_4NN[nfr]=perf_metrag4_caep120s[:]        
-        cae_runsag120_5NN[nfr]=perf_metrag5_caep120s[:] 
-        cae_runsag120_6NN[nfr]=perf_metrag6_caep120s[:]        
-#        cae_runsag120_7NN[nfr]=perf_metrag7_caep120s[:]  
-        
-        cae_runsag180_1NN[nfr]=perf_metrag1_caep180s[:]
-        cae_runsag180_2NN[nfr]=perf_metrag2_caep180s[:]        
-        cae_runsag180_3NN[nfr]=perf_metrag3_caep180s[:]        
-        cae_runsag180_4NN[nfr]=perf_metrag4_caep180s[:]        
-        cae_runsag180_5NN[nfr]=perf_metrag5_caep180s[:] 
-        cae_runsag180_6NN[nfr]=perf_metrag6_caep180s[:]
-#        cae_runsag180_7NN[nfr]=perf_metrag7_caep180s[:]
-        
-        cae_runsdf30_1NN[nfr]=perf_metrdf1_caep30s[:]
-        cae_runsdf30_2NN[nfr]=perf_metrdf2_caep30s[:]               
-        cae_runsdf30_3NN[nfr]=perf_metrdf3_caep30s[:]  
-        
-        cae_runsdf60_1NN[nfr]=perf_metrdf1_caep60s[:]
-        cae_runsdf60_2NN[nfr]=perf_metrdf2_caep60s[:]               
-        cae_runsdf60_3NN[nfr]=perf_metrdf3_caep60s[:] 
-        
-        cae_runsdf90_1NN[nfr]=perf_metrdf1_caep90s[:]
-        cae_runsdf90_2NN[nfr]=perf_metrdf2_caep90s[:]               
-        cae_runsdf90_3NN[nfr]=perf_metrdf3_caep90s[:]  
-        
-        cae_runsdf120_1NN[nfr]=perf_metrdf1_caep120s[:]   
-        cae_runsdf120_2NN[nfr]=perf_metrdf2_caep120s[:]
-        cae_runsdf120_3NN[nfr]=perf_metrdf3_caep120s[:]
-        
-        cae_runsdf180_1NN[nfr]=perf_metrdf1_caep180s[:]   
-        cae_runsdf180_2NN[nfr]=perf_metrdf2_caep180s[:]
-        cae_runsdf180_3NN[nfr]=perf_metrdf3_caep180s[:]
+      cte_runsra_1NN[nfr]=perf_metrra1_ctepcs[:]  
+      cte_runsra_2NN[nfr]=perf_metrra2_ctepcs[:]         
+
+      cte_runscia_1NN[nfr]=perf_metrcia1_ctepcs[:] 
+      cte_runscia_2NN[nfr]=perf_metrcia2_ctepcs[:]         
+
+      cte_runshb_1NN[nfr]=perf_metrhb1_ctepcs[:]
+      cte_runshb_2NN[nfr]=perf_metrhb2_ctepcs[:]        
+
+      cte_runsslr_1NN[nfr]=perf_metrslr1_ctepcs[:]  
+      cte_runsslr_2NN[nfr]=perf_metrslr2_ctepcs[:]         
+      cte_runsslr_3NN[nfr]=perf_metrslr3_ctepcs[:] 
+
+      cte_runswr_1NN[nfr]=perf_metrwr1_ctepcs[:]
+      cte_runswr_2NN[nfr]=perf_metrwr2_ctepcs[:]        
+      cte_runswr_3NN[nfr]=perf_metrwr3_ctepcs[:]        
+
+      cte_runsag30_1NN[nfr]=perf_metrag1_ctep30s[:]
+      cte_runsag30_2NN[nfr]=perf_metrag2_ctep30s[:]        
+      cte_runsag30_3NN[nfr]=perf_metrag3_ctep30s[:]        
+      cte_runsag30_4NN[nfr]=perf_metrag4_ctep30s[:]        
+      cte_runsag30_5NN[nfr]=perf_metrag5_ctep30s[:] 
+      cte_runsag30_6NN[nfr]=perf_metrag6_ctep30s[:]        
+
+      cte_runsag60_1NN[nfr]=perf_metrag1_ctep60s[:]
+      cte_runsag60_2NN[nfr]=perf_metrag2_ctep60s[:]        
+      cte_runsag60_3NN[nfr]=perf_metrag3_ctep60s[:]        
+      cte_runsag60_4NN[nfr]=perf_metrag4_ctep60s[:]        
+      cte_runsag60_5NN[nfr]=perf_metrag5_ctep60s[:] 
+      cte_runsag60_6NN[nfr]=perf_metrag6_ctep60s[:]        
+
+
+      cte_runsag90_1NN[nfr]=perf_metrag1_ctep90s[:]
+      cte_runsag90_2NN[nfr]=perf_metrag2_ctep90s[:]        
+      cte_runsag90_3NN[nfr]=perf_metrag3_ctep90s[:]        
+      cte_runsag90_4NN[nfr]=perf_metrag4_ctep90s[:]        
+      cte_runsag90_5NN[nfr]=perf_metrag5_ctep90s[:]   
+      cte_runsag90_6NN[nfr]=perf_metrag6_ctep90s[:]        
+
+
+      cte_runsag120_1NN[nfr]=perf_metrag1_ctep120s[:]
+      cte_runsag120_2NN[nfr]=perf_metrag2_ctep120s[:]        
+      cte_runsag120_3NN[nfr]=perf_metrag3_ctep120s[:]        
+      cte_runsag120_4NN[nfr]=perf_metrag4_ctep120s[:]        
+      cte_runsag120_5NN[nfr]=perf_metrag5_ctep120s[:] 
+      cte_runsag120_6NN[nfr]=perf_metrag6_ctep120s[:]        
+
+
+      cte_runsag180_1NN[nfr]=perf_metrag1_ctep180s[:]
+      cte_runsag180_2NN[nfr]=perf_metrag2_ctep180s[:]        
+      cte_runsag180_3NN[nfr]=perf_metrag3_ctep180s[:]        
+      cte_runsag180_4NN[nfr]=perf_metrag4_ctep180s[:]        
+      cte_runsag180_5NN[nfr]=perf_metrag5_ctep180s[:] 
+      cte_runsag180_6NN[nfr]=perf_metrag6_ctep180s[:]
+
+
+      cte_runsdf30_1NN[nfr]=perf_metrdf1_ctep30s[:]
+      cte_runsdf30_2NN[nfr]=perf_metrdf2_ctep30s[:]               
+      cte_runsdf30_3NN[nfr]=perf_metrdf3_ctep30s[:]  
+
+      cte_runsdf60_1NN[nfr]=perf_metrdf1_ctep60s[:]
+      cte_runsdf60_2NN[nfr]=perf_metrdf2_ctep60s[:]               
+      cte_runsdf60_3NN[nfr]=perf_metrdf3_ctep60s[:] 
+
+      cte_runsdf90_1NN[nfr]=perf_metrdf1_ctep90s[:]
+      cte_runsdf90_2NN[nfr]=perf_metrdf2_ctep90s[:]               
+      cte_runsdf90_3NN[nfr]=perf_metrdf3_ctep90s[:]  
+
+      cte_runsdf120_1NN[nfr]=perf_metrdf1_ctep120s[:]   
+      cte_runsdf120_2NN[nfr]=perf_metrdf2_ctep120s[:]
+      cte_runsdf120_3NN[nfr]=perf_metrdf3_ctep120s[:]
+
+      cte_runsdf180_1NN[nfr]=perf_metrdf1_ctep180s[:]   
+      cte_runsdf180_2NN[nfr]=perf_metrdf2_ctep180s[:]
+      cte_runsdf180_3NN[nfr]=perf_metrdf3_ctep180s[:]
+
 
         
         'indexes the maximum prediction crse across each 10 seconds array'
@@ -689,40 +689,35 @@ for nfr in range(number_of_runs):
         crse_runsag30_4INS_DR[nfr]=perf_metrag4_crsedr30s[:]        
         crse_runsag30_5INS_DR[nfr]=perf_metrag5_crsedr30s[:]
         crse_runsag30_6INS_DR[nfr]=perf_metrag6_crsedr30s[:]        
-#        crse_runsag30_7INS_DR[nfr]=perf_metrag7_crsedr30s[:]
-        
+  
         crse_runsag60_1INS_DR[nfr]=perf_metrag1_crsedr60s[:]
         crse_runsag60_2INS_DR[nfr]=perf_metrag2_crsedr60s[:]        
         crse_runsag60_3INS_DR[nfr]=perf_metrag3_crsedr60s[:]        
         crse_runsag60_4INS_DR[nfr]=perf_metrag4_crsedr60s[:]        
         crse_runsag60_5INS_DR[nfr]=perf_metrag5_crsedr60s[:]
         crse_runsag60_6INS_DR[nfr]=perf_metrag6_crsedr60s[:]        
-#        crse_runsag60_7INS_DR[nfr]=perf_metrag7_crsedr60s[:] 
-        
+ 
         crse_runsag90_1INS_DR[nfr]=perf_metrag1_crsedr90s[:]
         crse_runsag90_2INS_DR[nfr]=perf_metrag2_crsedr90s[:]        
         crse_runsag90_3INS_DR[nfr]=perf_metrag3_crsedr90s[:]        
         crse_runsag90_4INS_DR[nfr]=perf_metrag4_crsedr90s[:]
         crse_runsag90_5INS_DR[nfr]=perf_metrag5_crsedr90s[:]
         crse_runsag90_6INS_DR[nfr]=perf_metrag6_crsedr90s[:]        
-#        crse_runsag90_7INS_DR[nfr]=perf_metrag7_crsedr90s[:] 
-        
+ 
         crse_runsag120_1INS_DR[nfr]=perf_metrag1_crsedr120s[:]
         crse_runsag120_2INS_DR[nfr]=perf_metrag2_crsedr120s[:]        
         crse_runsag120_3INS_DR[nfr]=perf_metrag3_crsedr120s[:]        
         crse_runsag120_4INS_DR[nfr]=perf_metrag4_crsedr120s[:]
         crse_runsag120_5INS_DR[nfr]=perf_metrag5_crsedr120s[:]
         crse_runsag120_6INS_DR[nfr]=perf_metrag6_crsedr120s[:]        
-#        crse_runsag120_7INS_DR[nfr]=perf_metrag7_crsedr120s[:] 
-        
+
         crse_runsag180_1INS_DR[nfr]=perf_metrag1_crsedr180s[:]
         crse_runsag180_2INS_DR[nfr]=perf_metrag2_crsedr180s[:]        
         crse_runsag180_3INS_DR[nfr]=perf_metrag3_crsedr180s[:]        
         crse_runsag180_4INS_DR[nfr]=perf_metrag4_crsedr180s[:]
         crse_runsag180_5INS_DR[nfr]=perf_metrag5_crsedr180s[:]
         crse_runsag180_6INS_DR[nfr]=perf_metrag6_crsedr180s[:]        
-#        crse_runsag180_7INS_DR[nfr]=perf_metrag7_crsedr180s[:] 
-        
+
         crse_runsdf30_1INS_DR[nfr]=perf_metrdf1_crsedr30s[:]
         crse_runsdf30_2INS_DR[nfr]=perf_metrdf2_crsedr30s[:]              
         crse_runsdf30_3INS_DR[nfr]=perf_metrdf3_crsedr30s[:]  
