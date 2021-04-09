@@ -4,53 +4,30 @@ Created on Sun Dec  8 22:03:11 2019
 
 @author: onyekpeu
 """
-#Best
+
 import numpy as np
 
-from function_files import *
+from  function_fileswsdisperrcsv2 import *
 from IO_VNB_Dataset import *
-from empty_arrays import *
+
 
 'Parameters'
-
-
-
-new_opt_runsmw=np.zeros((4,len(par)))
-new_opt_runsra=np.zeros((8,len(par)))
-
-new_opt_runscia=np.zeros((8,len(par)))
-new_opt_runshb=np.zeros((8,len(par)))
-
-new_opt_runsslr=np.zeros((12,len(par)))
-new_opt_runswr=np.zeros((12,len(par)))
-
-new_opt_runs030=np.zeros((36,len(par)))
-new_opt_runs060=np.zeros((36,len(par)))
-new_opt_runs120=np.zeros((36,len(par)))
-new_opt_runs180=np.zeros((36,len(par)))
-
-
-
 dropout=0.05
-
 input_dim = 4*10
 output_dim = 1
 num_epochs = 80
 layer_dim = 1
 learning_rate = 0.0007
 batch_size =128
-test_split =0
 decay_rate=0
 decay_steps=10000
 momentum=0.8
 samplefreq=10
 Ts=int(samplefreq*1*1)
 seq_dim=int(1*(10/Ts))
-seq_dim_=int(seq_dim*Ts)
-avg=1
 l1_=0
 l2_=0
-h2 = 72
+h2 = 72#neurons in hidden layers
 Z=1
 outage1=100
 outage2=300
@@ -59,7 +36,7 @@ outage4=900
 outage5=1200
 outage6=1800
 number_of_runs=1
-splitvalue=0.30# from 5% to 30%
+
 mode='RNN'
 
   
@@ -98,8 +75,8 @@ HBdat2=[V_Vw17]
 
 #Sharp cornering and successive left and right scenario
 SLRdat1=[V_Vw6]
-SLRdat2=[V_Vw8]
-SLRdat3=[V_Vw7]  
+SLRdat2=[V_Vw7]
+SLRdat3=[V_Vw8]  
 
 #Motorway scenario
 MWdat=[V_Vw12]
@@ -120,41 +97,41 @@ DFdat1=[V_St6]
 DFdat2=[V_St7[:17000]]
 DFdat3=[V_S3a]
 
-amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn= maxmin17(V_Vw12,Ts, Acc1_bias, gyro1_bias)
+amx, amn, rad1, rad2= maxmin17(V_Vw12,Ts, Acc1_bias, gyro1_bias)
 
 '''Data processing for training'''
-gtr,itr,x, y=data_process13t(TrainDat, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
+gtr,itr,x, y=data_process13t(TrainDat, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
 
 '''Data processing for evaluation'''
 #Motorway Scenario
-gtmw,itmw,xtmw, ytmw=data_process13t(MWdat, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
+gtmw,itmw,xtmw, ytmw=data_process13t(MWdat, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2,  Z, mode)
 #Roundabout Scenario    
-gtra1,itra1,xtra1, ytra1=data_process13t(RAdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
-gtra2,itra2,xtra2, ytra2=data_process13t(RAdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode,)
+gtra1,itra1,xtra1, ytra1=data_process13t(RAdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2,   Z, mode)
+gtra2,itra2,xtra2, ytra2=data_process13t(RAdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2,  Z, mode,)
 #Hard brake Scenario
-gthb1,ithb1,xthb1, ythb1=data_process13t(HBdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn,Z, mode) 
-gthb2,ithb2,xthb2, ythb2=data_process13t(HBdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn,Z, mode)  
+gthb1,ithb1,xthb1, ythb1=data_process13t(HBdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode) 
+gthb2,ithb2,xthb2, ythb2=data_process13t(HBdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)  
 #Quick changes in acceleration Scenario
-gtcia1,itcia1,xtcia1, ytcia1=data_process13t(CIAdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode) 
-gtcia2,itcia2,xtcia2, ytcia2=data_process13t(CIAdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)       
+gtcia1,itcia1,xtcia1, ytcia1=data_process13t(CIAdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode) 
+gtcia2,itcia2,xtcia2, ytcia2=data_process13t(CIAdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2,Z, mode)       
 #Sharp cornering and successive left and right turns Scenario
-gtslr1,itslr1,xtslr1, ytslr1=data_process13t(SLRdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)           
-gtslr2,itslr2,xtslr2, ytslr2=data_process13t(SLRdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)  
-gtslr3,itslr3,xtslr3, ytslr3=data_process13t(SLRdat3, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)       
+gtslr1,itslr1,xtslr1, ytslr1=data_process13t(SLRdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)           
+gtslr2,itslr2,xtslr2, ytslr2=data_process13t(SLRdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)  
+gtslr3,itslr3,xtslr3, ytslr3=data_process13t(SLRdat3, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)       
 #Wet Road Scenario
-gtwr1,itwr1,xtwr1, ytwr1=data_process13t(WRdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)      
-gtwr2,itwr2,xtwr2, ytwr2=data_process13t(WRdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode) 
-gtwr3,itwr3,xtwr3, ytwr3=data_process13t(WRdat3, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode) 
+gtwr1,itwr1,xtwr1, ytwr1=data_process13t(WRdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)      
+gtwr2,itwr2,xtwr2, ytwr2=data_process13t(WRdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode) 
+gtwr3,itwr3,xtwr3, ytwr3=data_process13t(WRdat3, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode) 
  #Longer-term GNSS Outages Scenario   
-gtag1,itag1,xtag1, ytag1=data_process13t(AGdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
-gtag2,itag2,xtag2, ytag2=data_process13t(AGdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
-gtag3,itag3,xtag3, ytag3=data_process13t(AGdat3, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
-gtag4,itag4,xtag4, ytag4=data_process13t(AGdat4, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
-gtag5,itag5,xtag5, ytag5=data_process13t(AGdat5, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
-gtag6,itag6,xtag6, ytag6=data_process13t(AGdat6, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
-gtdf1,itdf1,xtdf1, ytdf1=data_process13t(DFdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
-gtdf2,itdf2,xtdf2, ytdf2=data_process13t(DFdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
-gtdf3,itdf3,xtdf3, ytdf3=data_process13t(DFdat3, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, dimx, dimn, dgmx, dgmn, gymx, gymn, Z, mode)
+gtag1,itag1,xtag1, ytag1=data_process13t(AGdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
+gtag2,itag2,xtag2, ytag2=data_process13t(AGdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
+gtag3,itag3,xtag3, ytag3=data_process13t(AGdat3, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
+gtag4,itag4,xtag4, ytag4=data_process13t(AGdat4, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
+gtag5,itag5,xtag5, ytag5=data_process13t(AGdat5, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
+gtag6,itag6,xtag6, ytag6=data_process13t(AGdat6, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
+gtdf1,itdf1,xtdf1, ytdf1=data_process13t(DFdat1, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
+gtdf2,itdf2,xtdf2, ytdf2=data_process13t(DFdat2, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
+gtdf3,itdf3,xtdf3, ytdf3=data_process13t(DFdat3, seq_dim, input_dim, output_dim, Ts, Acc1_bias, Acc2_bias, gyro1_bias, batch_size, amx, amn, rad1, rad2, Z, mode)
 
 
 
@@ -635,7 +612,7 @@ for nfr in range(number_of_runs):
 
 
         
-      'indexes the crse performance metric output for the physical model'
+    'indexes the crse performance metric output for the physical model'
  
     crse_runsmwPHY_MOD[nfr]=perf_metrmw_crsedrcs[:]
 
@@ -1029,11 +1006,7 @@ ddf180_1PHY_MOD=np.amin(cte_runsdf180_1PHY_MOD,axis=0)
 ddf180_2PHY_MOD=np.amin(cte_runsdf180_2PHY_MOD,axis=0)   
 ddf180_3PHY_MOD=np.amin(cte_runsdf180_3PHY_MOD,axis=0) 
 
-label=np.array([Max,Min, Avg, Std])
 
-label1=np.concatenate((np.reshape(ara_1NN,(4,1)), np.reshape(ara_1NN,(4,1))))
-label2=np.concatenate((np.reshape(ara_1NN,(4,1)), np.reshape(ara_1NN,(4,1)),  np.reshape(ara_1NN,(4,1))))
-label3=np.concatenate((np.reshape(ara_1NN,(4,1)), np.reshape(ara_1NN,(4,1)),  np.reshape(ara_1NN,(4,1)),np.reshape(ara_1NN,(4,1)), np.reshape(ara_1NN,(4,1)),  np.reshape(ara_1NN,(4,1)),np.reshape(ara_1NN,(4,1)),  np.reshape(ara_1NN,(4,1))))
 bmwNN=np.reshape(amwNN,(4,1))  
 braNN=np.concatenate((np.reshape(ara_1NN,(4,1)),np.reshape(ara_2NN,(4,1))),axis=0)  
 bciaNN=np.concatenate((np.reshape(acia_1NN,(4,1)),np.reshape(acia_2NN,(4,1))),axis=0)  
@@ -1057,7 +1030,7 @@ b060PHY_MOD=np.concatenate((np.reshape(aag060_1PHY_MOD,(4,1)),np.reshape(aag060_
 b120PHY_MOD=np.concatenate((np.reshape(aag120_1PHY_MOD,(4,1)),np.reshape(aag120_2PHY_MOD,(4,1)),np.reshape(aag120_3PHY_MOD,(4,1)),np.reshape(aag120_4PHY_MOD,(4,1)),np.reshape(aag120_5PHY_MOD,(4,1)),np.reshape(aag120_6PHY_MOD,(4,1)),np.reshape(adf120_1PHY_MOD,(4,1)),np.reshape(adf120_2PHY_MOD,(4,1)),np.reshape(adf120_3PHY_MOD,(4,1))),axis=0)    
 b180PHY_MOD=np.concatenate((np.reshape(aag180_1PHY_MOD,(4,1)),np.reshape(aag180_2PHY_MOD,(4,1)),np.reshape(aag180_3PHY_MOD,(4,1)),np.reshape(aag180_4PHY_MOD,(4,1)),np.reshape(aag180_5PHY_MOD,(4,1)),np.reshape(aag180_6PHY_MOD,(4,1)),np.reshape(adf180_1PHY_MOD,(4,1)),np.reshape(adf180_2PHY_MOD,(4,1)),np.reshape(adf180_3PHY_MOD,(4,1))),axis=0)    
 
-bmw=np.concatenate((label,bmw),axis=1)
+
 emwNN=np.reshape(dmwNN,(4,1))  
 eraNN=np.concatenate((np.reshape(dra_1NN,(4,1)),np.reshape(dra_2NN,(4,1))),axis=0)  
 eciaNN=np.concatenate((np.reshape(dcia_1NN,(4,1)),np.reshape(dcia_2NN,(4,1))),axis=0)  
@@ -1080,15 +1053,85 @@ e060PHY_MOD=np.concatenate((np.reshape(dag060_1PHY_MOD,(4,1)),np.reshape(dag060_
 e120PHY_MOD=np.concatenate((np.reshape(dag120_1PHY_MOD,(4,1)),np.reshape(dag120_2PHY_MOD,(4,1)),np.reshape(dag120_3PHY_MOD,(4,1)),np.reshape(dag120_4PHY_MOD,(4,1)),np.reshape(dag120_5PHY_MOD,(4,1)),np.reshape(dag120_6PHY_MOD,(4,1)),np.reshape(ddf120_1PHY_MOD,(4,1)),np.reshape(ddf120_2PHY_MOD,(4,1)),np.reshape(ddf120_3PHY_MOD,(4,1))),axis=0)     
 e180PHY_MOD=np.concatenate((np.reshape(dag180_1PHY_MOD,(4,1)),np.reshape(dag180_2PHY_MOD,(4,1)),np.reshape(dag180_3PHY_MOD,(4,1)),np.reshape(dag180_4PHY_MOD,(4,1)),np.reshape(dag180_5PHY_MOD,(4,1)),np.reshape(dag180_6PHY_MOD,(4,1)),np.reshape(ddf180_1PHY_MOD,(4,1)),np.reshape(ddf180_2PHY_MOD,(4,1)),np.reshape(ddf180_3PHY_MOD,(4,1))),axis=0)     
 
-'''FInal results from analysis (WhONet and the Physical Model)'''
-bmw=np.concatenate((label, bmwNN,bmwPHY_MOD),axis=1)#Motorway Scenario
-bmw=np.concatenate((['Performance Metric','WhONet', 'Physical Model'],bmw),axis=0)
-bra=np.concatenate((label1,braNN,braPHY_MOD),axis=1)#Roundabout Scenario
-bcia=np.concatenate((label1,bciaNN,bciaPHY_MOD),axis=1)#Quick changes in acceleration Scenario
-bhb=np.concatenate((label1,bhbNN,bhbPHY_MOD),axis=1)#hard brake Scenario
-bslr=np.concatenate((label2,bslrNN,bslrPHY_MOD),axis=1)#successive left right turn Scenario
-bwr=np.concatenate((label2,bwrNN,bwrPHY_MOD),axis=1)#wet road Scenario
-b30=np.concatenate((label3,b30NN,b30PHY_MOD),axis=1)#30 seconds Scenario
-b60=np.concatenate((label3,b60NN,b60PHY_MOD),axis=1)#60 seconds Scenario
-b120=np.concatenate((label3,b120NN,b120PHY_MOD),axis=1)#120 seconds Scenario
-b180=np.concatenate((label3,b180NN,b180PHY_MOD),axis=1)#180 seconds Scenario
+
+label=np.array(['Max','Min', 'Avg', 'Std'])
+label1=np.concatenate((np.reshape(label,(4,1)), np.reshape(label,(4,1))))
+label2=np.concatenate((np.reshape(label,(4,1)), np.reshape(label,(4,1)),  np.reshape(label,(4,1))))
+label3=np.concatenate((np.reshape(label,(4,1)), np.reshape(label,(4,1)),  np.reshape(label,(4,1)), np.reshape(label,(4,1)), np.reshape(label,(4,1)),  np.reshape(label,(4,1)),np.reshape(label,(4,1)),  np.reshape(label,(4,1)),  np.reshape(label,(4,1))))
+clmn_titles=np.reshape([['Dataset'],['Performance Metric'],['WhONet'], ['Physical Model']],(1,4))
+dataset_infomw=np.reshape([['V_Vw12'],[''], [''],['']],(4,1))
+dataset_infora=np.reshape([['V_Vta11'],[''], [''],[''],['V_Vfb02d'],[''], [''],['']],(8,1))
+dataset_infocia=np.reshape([['V_Vfb02e'],[''], [''],[''],['V_Vta12'],[''], [''],['']],(8,1))
+dataset_infohb=np.reshape([['V_Vw16b'],[''], [''],[''],['V_Vw17'],[''], [''],['']],(8,1))
+dataset_infoslr=np.reshape([['V_Vw6'],[''], [''],[''],['V_Vw7'],[''], [''],[''],['V_Vw8'],[''], [''],['']],(12,1))
+dataset_infowr=np.reshape([['V_Vtb8'],[''], [''],[''],['V_Vtb11'],[''], [''],[''],['V_Vtb13'],[''], [''],['']],(12,1))
+dataset_info030=np.reshape([['V_Vtb3'],[''], [''],[''],['V_Vfb01c'],[''], [''],[''],['V_Vfb02a'],[''], [''],[''],['V_Vta1a'],[''], [''],[''],['V_Vfb02b'],[''], [''],[''],['V_Vfb02g'],[''], [''],[''],['V_St6'],[''], [''],[''],['V_St7'],[''], [''],[''],['V_St3a'],[''], [''],['']],(36,1))
+dataset_info060=np.reshape([['V_Vtb3'],[''], [''],[''],['V_Vfb01c'],[''], [''],[''],['V_Vfb02a'],[''], [''],[''],['V_Vta1a'],[''], [''],[''],['V_Vfb02b'],[''], [''],[''],['V_Vfb02g'],[''], [''],[''],['V_St6'],[''], [''],[''],['V_St7'],[''], [''],[''],['V_St3a'],[''], [''],['']],(36,1))
+dataset_info120=np.reshape([['V_Vtb3'],[''], [''],[''],['V_Vfb01c'],[''], [''],[''],['V_Vfb02a'],[''], [''],[''],['V_Vta1a'],[''], [''],[''],['V_Vfb02b'],[''], [''],[''],['V_Vfb02g'],[''], [''],[''],['V_St6'],[''], [''],[''],['V_St7'],[''], [''],[''],['V_St3a'],[''], [''],['']],(36,1))
+dataset_info180=np.reshape([['V_Vtb3'],[''], [''],[''],['V_Vfb01c'],[''], [''],[''],['V_Vfb02a'],[''], [''],[''],['V_Vta1a'],[''], [''],[''],['V_Vfb02b'],[''], [''],[''],['V_Vfb02g'],[''], [''],[''],['V_St6'],[''], [''],[''],['V_St7'],[''], [''],[''],['V_St3a'],[''], [''],['']],(36,1))
+
+
+
+
+'''Final CRSE results from analysis (WhONet and the Physical Model)'''
+bmw=np.concatenate((dataset_infomw,np.reshape(label,(4,1)), np.round(bmwNN,2),np.round(bmwPHY_MOD,2)),axis=1)#Motorway Scenario
+CRSEmw=np.concatenate((clmn_titles,bmw),axis=0)
+
+bra=np.concatenate((dataset_infora,label1,np.round(braNN,2),np.round(braPHY_MOD,2)),axis=1)#Roundabout Scenario
+CRSEra=np.concatenate((clmn_titles,bra),axis=0)
+
+bcia=np.concatenate((dataset_infocia,label1,np.round(bciaNN,2),np.round(bciaPHY_MOD,2)),axis=1)#Quick changes in acceleration Scenario
+CRSEcia=np.concatenate((clmn_titles,bcia),axis=0)
+ 
+bhb=np.concatenate((dataset_infohb,label1,np.round(bhbNN,2),np.round(bhbPHY_MOD,2)),axis=1)#hard brake Scenario
+CRSEhb=np.concatenate((clmn_titles,bhb),axis=0)
+ 
+bslr=np.concatenate((dataset_infoslr,label2,np.round(bslrNN,2),np.round(bslrPHY_MOD,2)),axis=1)#successive left right turn Scenario
+CRSEslr=np.concatenate((clmn_titles,bslr),axis=0)
+ 
+bwr=np.concatenate((dataset_infowr,label2,np.round(bwrNN,2),np.round(bwrPHY_MOD,2)),axis=1)#wet road Scenario
+CRSEwr=np.concatenate((clmn_titles,bwr),axis=0)
+ 
+b030=np.concatenate((dataset_info030,label3,np.round(b030NN,2),np.round(b030PHY_MOD,2)),axis=1)#30 seconds Scenario
+CRSE030=np.concatenate((clmn_titles,b030),axis=0)
+ 
+b060=np.concatenate((dataset_info060,label3,np.round(b060NN,2),np.round(b060PHY_MOD,2)),axis=1)#60 seconds Scenario
+CRSE060=np.concatenate((clmn_titles,b060),axis=0)
+ 
+b120=np.concatenate((dataset_info120,label3,np.round(b120NN,2),np.round(b120PHY_MOD,2)),axis=1)#120 seconds Scenario
+CRSE120=np.concatenate((clmn_titles,b120),axis=0)
+ 
+b180=np.concatenate((dataset_info180,label3,np.round(b180NN,2),np.round(b180PHY_MOD,2)),axis=1)#180 seconds Scenario
+CRSE180=np.concatenate((clmn_titles,b180),axis=0)
+ 
+
+'''Final CTE results from analysis (WhONet and the Physical Model)'''
+emw=np.concatenate((dataset_infomw,np.reshape(label,(4,1)), np.round(emwNN,2),np.round(emwPHY_MOD,2)),axis=1)#Motorway Scenario
+CTEmw=np.concatenate((clmn_titles,emw),axis=0)
+
+era=np.concatenate((dataset_infora,label1,np.round(eraNN,2),np.round(eraPHY_MOD,2)),axis=1)#Roundabout Scenario
+CTEra=np.concatenate((clmn_titles,era),axis=0)
+
+ecia=np.concatenate((dataset_infocia,label1,np.round(eciaNN,2),np.round(eciaPHY_MOD,2)),axis=1)#Quick changes in acceleration Scenario
+CTEcia=np.concatenate((clmn_titles,ecia),axis=0)
+ 
+ehb=np.concatenate((dataset_infohb,label1,np.round(ehbNN,2),np.round(ehbPHY_MOD,2)),axis=1)#hard brake Scenario
+CTEhb=np.concatenate((clmn_titles,ehb),axis=0)
+ 
+eslr=np.concatenate((dataset_infoslr,label2,np.round(eslrNN,2),np.round(eslrPHY_MOD,2)),axis=1)#successive left right turn Scenario
+CTEslr=np.concatenate((clmn_titles,eslr),axis=0)
+ 
+ewr=np.concatenate((dataset_infowr,label2,np.round(ewrNN,2),np.round(ewrPHY_MOD,2)),axis=1)#wet road Scenario
+CTEwr=np.concatenate((clmn_titles,ewr),axis=0)
+ 
+e030=np.concatenate((dataset_info030,label3,np.round(e030NN,2),np.round(e030PHY_MOD,2)),axis=1)#30 seconds Scenario
+CTE030=np.concatenate((clmn_titles,e030),axis=0)
+ 
+e060=np.concatenate((dataset_info060,label3,np.round(e060NN,2),np.round(e060PHY_MOD,2)),axis=1)#60 seconds Scenario
+CTE060=np.concatenate((clmn_titles,e060),axis=0)
+ 
+e120=np.concatenate((dataset_info120,label3,np.round(e120NN,2),np.round(e120PHY_MOD,2)),axis=1)#120 seconds Scenario
+CTE120=np.concatenate((clmn_titles,e120),axis=0)
+ 
+e180=np.concatenate((dataset_info180,label3,np.round(e180NN,2),np.round(e180PHY_MOD,2)),axis=1)#180 seconds Scenario
+CTE180=np.concatenate((clmn_titles,e180),axis=0)
