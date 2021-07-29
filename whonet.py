@@ -29,12 +29,12 @@ l1_=0
 l2_=0
 h2 = 72#neurons in hidden layers
 Z=1
-outage1=100
-outage2=300
-outage3=600
+outage1=100 #challenging scenario
+outage2=300 # 30s outage scenario
+outage3=600 #60s outage scenario
 outage4=900
-outage5=1200
-outage6=1800
+outage5=1200 # 120s outage scenario
+outage6=1800 #180s outage scenario
 number_of_runs=1
 
 mode='RNN'
